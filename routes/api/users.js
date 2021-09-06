@@ -11,7 +11,7 @@ const router = express.Router();
 
 router.post('/', asyncHandler( async (req, res, next) => {
     
-    const { email } = req.body;
+    const { email, firstName, lastName, subject, message } = req.body;
 
     let user = await User.findOne(({ email }))
 
@@ -23,7 +23,7 @@ router.post('/', asyncHandler( async (req, res, next) => {
 
 
     user = new User({
-        email
+        email, firstName, lastName, subject, message
     });
     
     await mailer(email).catch(console.error);
@@ -31,7 +31,7 @@ router.post('/', asyncHandler( async (req, res, next) => {
     await user.save();
 
     
-    res.json({ email })
+    res.json({ user })
 }));
 
 

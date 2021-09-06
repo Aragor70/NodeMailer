@@ -2,7 +2,7 @@ require('dotenv').config({ path: './config/config.env' })
 
 const express = require('express');
 const connect = require('./config/db');
-
+const errorHandler = require('./middlewares/error');
 const app = express();
 
 
@@ -13,7 +13,7 @@ app.use(express.json({ extended: false }))
 
 app.use('/api/users', require('./routes/api/users'));
 
-
+app.use(errorHandler)
 
 const PORT = process.env.PORT || 5000;
 
